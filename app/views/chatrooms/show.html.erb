@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @chatroom %>
+
+<div>
+  <%= link_to "Edit this chatroom", edit_chatroom_path(@chatroom) %> |
+  <%= link_to "Back to chatrooms", chatrooms_path %>
+
+  <%= button_to "Destroy this chatroom", @chatroom, method: :delete %>
+</div>

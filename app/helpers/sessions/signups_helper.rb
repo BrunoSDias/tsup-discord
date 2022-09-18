@@ -1,0 +1,2 @@
+module Sessions::SignupsHelper
+end

@@ -1,0 +1,11 @@
+<div class="d-flex">
+  <%= render "shared/sidebar", total_friendship_requests_received: @total_friendship_requests_received
+  %>
+
+  <div class='p-0 w-100'>
+    <%= render "shared/header" %>
+    <div class="p-4">
+      <%= turbo_frame_tag "main" %>
+    </div>
+  </div>
+</div>

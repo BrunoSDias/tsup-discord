@@ -1,0 +1,18 @@
+<%= turbo_frame_tag "main" do %>
+  <p style="color: green"><%= notice %></p>
+  <%= turbo_frame_tag "flash_message" %>
+
+  <h5>Pendente - <%= @target_friendship_requests.count + @sender_friendship_requests.count %></h5>
+
+  <%= turbo_stream_from @current_user, "friendship_requests" %>
+  <%= turbo_frame_tag "friendship_requests_container" do %>
+    <% @target_friendship_requests.each do |friendship_request| %>
+      <%= render "friendship_requests/target_friendship_request", friendship_request: friendship_request %>
+    <% end %>
+    
+    <% @sender_friendship_requests.each do |friendship_request| %>
+      <%= render "friendship_requests/sender_friendship_request", friendship_request: friendship_request %>
+    <% end %>
+  <% end %>
+<% end %>
+

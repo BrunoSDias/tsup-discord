@@ -1,0 +1,56 @@
+.friendship_request {
+  max-width: 800px;
+  &__item {
+    p {
+      font-size: 16px;
+    }
+
+    small {
+      font-size: 15px;
+      color: #bdbec0;
+    }
+
+    button {
+      border-radius: 50% !important;
+      height: 40px;
+      background-color: #8d8f92;
+      width: 40px;
+      font-size: 20px;
+    }
+  }
+
+  &__form {
+    &__fieldset {
+      background-color: #1f2225;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+  
+      input {
+        background-color: #1f2225;
+        border: none;
+        width: 100%;
+        color: #fff;
+  
+        &:focus {
+          font-style: none;
+          border: none;
+        }
+  
+        &:focus-visible {
+          font-style: none;
+          border: none;
+        }
+      }
+  
+      button {
+        width: 100%;
+        max-width: 244px;
+      }
+    }
+  
+    small {
+      color: #8d8f92;
+    }
+  }
+}

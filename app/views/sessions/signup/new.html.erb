@@ -1,0 +1,31 @@
+<h2> Crie sua conta </h2>
+<%= form_for :session, url: sessions_signup_index_path do |f| %>
+  <div>
+    <%= f.label :avatar %>
+    <%= f.file_field :avatar %>
+  </div>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
+
+<%= link_to "Acesse sua conta", new_sessions_signin_path %>

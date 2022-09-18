@@ -1,0 +1,15 @@
+<% if @friendship_request.errors.any? %>
+  <div style="color: red">
+    <ul>
+      <% @friendship_request.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <%= turbo_stream.append "flash_message" do %>
+    <p style="color: green"><%= flash[:notice] %></p>
+  <% end %>
+
+  <%= turbo_stream.remove @friendship_request %>
+<% end %>

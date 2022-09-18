@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Chatrooms</h1>
+
+<div id="chatrooms">
+  <% @chatrooms.each do |chatroom| %>
+    <%= render chatroom %>
+    <p>
+      <%= link_to "Show this chatroom", chatroom %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New chatroom", new_chatroom_path %>

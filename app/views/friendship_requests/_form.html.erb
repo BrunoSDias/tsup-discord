@@ -1,0 +1,21 @@
+<%= form_with model: FriendshipRequest.new, data: { controller: 'friend-request'} do |form| %>
+  <% if friendship_request.errors.any? %>
+    <div style="color: red">
+      <ul>
+        <% friendship_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if notice %>
+    <p style="color: green"><%= notice %></p>
+  <% end %>
+  
+
+  <%= field_set_tag nil, class: 'friendship_request__form__fieldset' do %>
+    <%= form.text_field :email , placeholder: "Insira um email de usuario", data: { 'friend-request-target': 'email' } %>
+    <%= form.button "Enviar pedido de amizade", class: "btn btn-primary", disabled: true %>
+  <% end %>
+  
+<% end %>

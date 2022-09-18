@@ -1,0 +1,32 @@
+<%= turbo_frame_tag "header_frame" do %>
+  <nav class="navbar navbar-expand-lg w-100 header shadow">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#">Amigos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/available_friendships" data-turbo-frame="main">Disponivel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/friendships" data-turbo-frame="main">Todos</a>
+          </li>
+          <li class="nav-item d-flex">
+            <a class="nav-link text-light" href="/friendship_requests" data-turbo-frame="main">Pendente</a>
+            <%= turbo_stream_from @current_user, "total_friendship_requests_received" %>
+            <%= render "shared/counter_badge", total: @total_friendship_requests_received %>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/blockeds" data-turbo-frame="main">Bloqueado</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to new_friendship_request_path, class: "nav-link text-light", style: "color: #46c46e !important;", data: { turbo_frame: "main" } do %>
+              Adicionar Amigo
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<% end %>

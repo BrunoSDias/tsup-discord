@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "main" do %>
+  <p style="color: green"><%= notice %></p>
+  <%= turbo_frame_tag "flash_message" %>
+
+  <h5>BLOQUEADOS - <%= @blockeds.count %></h5>
+
+  <%= turbo_stream_from @current_user, "blockeds_container" %>
+  <%= turbo_frame_tag "blockeds_container" do %>
+    <% @blockeds.each do |blocked| %>
+      <%= render "blockeds/blocked", blocked: blocked %>
+    <% end %>
+  <% end %>
+<% end %>
+

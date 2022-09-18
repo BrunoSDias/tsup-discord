@@ -1,0 +1,21 @@
+.friendship {
+  max-width: 800px;
+  &__item {
+    p {
+      font-size: 16px;
+    }
+
+    small {
+      font-size: 15px;
+      color: #bdbec0;
+    }
+
+    &__button {
+      border-radius: 50% !important;
+      height: 40px;
+      background-color: #8d8f92;
+      width: 40px;
+      font-size: 20px;
+    }
+  }
+}

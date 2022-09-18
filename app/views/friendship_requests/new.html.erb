@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "main" do %>
+  <div class="friendship_request__form">
+    <h5>ADICIONAR AMIGO</h5>
+    <small> Você pode adicionar amigos com o email deles </small>
+    <%= render "form", friendship_request: @friendship_request %>
+  </div>
+<% end %>

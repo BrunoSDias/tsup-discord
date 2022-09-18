@@ -1,0 +1,20 @@
+<div id="<%= dom_id blocked %>">
+  <div class='d-flex friendship__item w-100 justify-content-between'>
+    <div class='d-flex'>
+      <% if blocked.target.avatar.attached? %>
+        <%= image_tag blocked.target.avatar, class: 'rounded-image', width: 40, height: 40 %>
+      <% else %>
+        <i class="bi bi-person-check" style='font-size: 28px; margin-right: 10px;'></i>
+      <% end %>
+      <div class="ms-2" style="line-height: 16px;">
+        <p class="m-0"><%= blocked.target.name %></p>
+        <small>Bloqueado</small>
+      </div>
+    </div>
+    <div class='d-flex'>
+      <%= button_to blocked_path(blocked), method: :delete, class: 'rounded friendship__item__button' do %>
+        <i class="bi bi-person-x"></i>
+      <% end %>
+    </div>
+  </div>
+</div>
