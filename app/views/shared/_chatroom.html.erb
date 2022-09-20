@@ -1,0 +1,14 @@
+<div class='d-flex align-items-center'>
+  <% if users.first.avatar.attached? %>
+    <%= image_tag users.first.avatar, class: 'rounded-image', width: 40, height: 40 %>
+  <% else %>
+    <i class="bi bi-person-check" style='font-size: 28px; margin-right: 10px;'></i>
+  <% end %>
+  <div class="ms-2" style="line-height: 16px;">
+    <p class="m-0"><%= users.first.name %></p>
+  </div>
+</div>
+<% size = users.size %>
+<% if size > 1 %>
+  <%= size %> Membros
+<% end %>

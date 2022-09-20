@@ -1,0 +1,5 @@
+  <%= turbo_stream.append "flash_message" do %>
+    <p style="color: green"><%= flash[:notice] %></p>
+  <% end %>
+
+  <%= turbo_stream.remove "user_#{@friend_user_id}" %>

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   has_many :blockeds, class_name: "Blocked", foreign_key: "sender_id"
+  has_many :user_chatrooms
+  has_many :chatrooms, through: :user_chatrooms, source: :chatroom
 
   enum status: {
     'disponivel': 'available',

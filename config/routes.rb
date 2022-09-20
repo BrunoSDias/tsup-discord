@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :blockeds
   root 'home#index'
-  resources :friendships, only: %i[index new] do
+  resources :friendships, only: %i[index new destroy] do
     get 'header', on: :collection
+    delete 'remove', on: :collection, to: 'friendships#destroy'
   end
   
   resources :available_friendships, only: %i[index]

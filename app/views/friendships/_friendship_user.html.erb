@@ -21,7 +21,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
           <li>
-            <%= button_to "Desfazer amizade", friendships_path(friendship_user), method: :delete, class: "dropdown-item bg-transparent" %>
+            <%= button_to "Desfazer amizade", remove_friendships_path(user_id: friendship_user.id), method: :delete, class: "dropdown-item bg-transparent" %>
           </li>
         </ul>
       </div>

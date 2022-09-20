@@ -1,0 +1,28 @@
+<div class="dropdown-menu p-0">
+  <%= form_with(model: Chatroom.new) do |form| %>
+    <div class="direct_messages card">
+      <p class="m-0 direct_messages__title">Selecionar amigos</p>
+      <small class="direct_messages__subtitle">Você pode adicionar até mais 9 amigos</small>
+      
+      <div class="direct_messages__list">
+        <% users.each do |user| %>
+          <div class='d-flex align-items-center justify-content-between'>
+            <div class='d-flex align-items-center'>
+              <% if user.avatar.attached? %>
+                <%= image_tag user.avatar, class: 'rounded-image', width: 40, height: 40 %>
+              <% else %>
+                <i class="bi bi-person-check" style='font-size: 28px; margin-right: 10px;'></i>
+              <% end %>
+              <div class="ms-2" style="line-height: 16px;">
+                <p class="m-0"><%= user.name %></p>
+              </div>
+            </div>
+            <%= form.check_box :user_ids, { multiple: true }, user.id, nil %>
+          </div>
+        <% end %>
+      </div>
+      <hr>
+      <%= form.submit "Criar grupo privado", class: "btn btn-primary w-100" %>
+    </div>
+  <% end %>
+</div>

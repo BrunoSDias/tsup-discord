@@ -1,0 +1,18 @@
+.direct_messages {
+  background-color: #36393f;
+  padding: 15px;
+  min-width: 400px;
+
+  &__title {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  &__subtitle {
+    font-size: 13px;
+  }
+
+  &__list {
+    min-height: 80px;
+  }
+}

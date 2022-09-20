@@ -21,10 +21,8 @@ class ChatroomsController < ApplicationController
 
   # POST /chatrooms or /chatrooms.json
   def create
-    @chatroom = Chatroom.new(chatroom_params)
-
     respond_to do |format|
-      if @chatroom.save
+      if Chatroom.start(chatroom_params[:user_ids] << @current_user.id)
         format.html { redirect_to chatroom_url(@chatroom), notice: "Chatroom was successfully created." }
         format.json { render :show, status: :created, location: @chatroom }
       else

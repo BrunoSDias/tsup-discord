@@ -1,5 +1,8 @@
 <div class="d-flex">
-  <%= render "shared/sidebar", total_friendship_requests_received: @total_friendship_requests_received
+  <%= render "shared/sidebar",
+             total_friendship_requests_received: @total_friendship_requests_received,
+             users: @users,
+             chatroom_groups: @chatroom_groups
   %>
 
   <div class='p-0 w-100'>
