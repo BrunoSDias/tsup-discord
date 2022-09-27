@@ -15,7 +15,7 @@
     </div>
     <div class="dropdown d-flex justify-content-between align-items-center">
       <span style="font-size: 14px;">MENSAGENS DIRETAS </span>
-      <a href="#" data-bs-toggle="dropdown" style="font-size: 26px; text-decoration: none;">
+      <a href="#" data-bs-toggle="dropdown" style="font-size: 26px; text-decoration: none;" id="direct-messages-trigger">
         + 
       </a>
       <%= render "shared/direct_messages", users: @users %>
@@ -23,9 +23,9 @@
   <% end %>
   
   <%= turbo_stream_from "user_#{@current_user.id}_chatrooms" %>
-  <%= turbo_frame_tag "user_#{@current_user.id}_chatrooms" do %>
+  <%= turbo_frame_tag "chatrooms" do %>
     <% chatroom_groups.each do |key, values| %>
-      <div class='d-flex align-items-center'>
+      <%= button_to chatroom_path(key), method: :get, class: 'd-flex align-items-center', form: { data: { controller: "chatroom", action: "turbo:before-fetch-request->chatroom#add_turbo_header" } } do %>
         <% if values[0].user.avatar.attached? %>
           <%= image_tag values[0].user.avatar, class: 'rounded-image', width: 40, height: 40 %>
         <% else %>
@@ -34,7 +34,7 @@
         <div class="ms-2" style="line-height: 16px;">
           <p class="m-0"><%= values[0].user.name %></p>
         </div>
-      </div>
+      <% end %>
       <% size = values.size %>
       <% if size > 1 %>
         <%= size %> Membros

@@ -1,0 +1,5 @@
+<% if @chatroom.errors.any? %>
+ <%= turbo_stream.replace "flash_message" do %>
+  <p class='text-danger'> <%= @chatroom.errors.full_messages.join(", ") %> </p>
+ <% end %>
+<% end %>

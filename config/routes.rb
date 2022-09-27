@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages
   resources :blockeds
   root 'home#index'
   resources :friendships, only: %i[index new destroy] do

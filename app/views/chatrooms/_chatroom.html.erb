@@ -1,2 +1,13 @@
-<div id="<%= dom_id chatroom %>">
+<div id="<%= dom_id chatroom %>" class="h-100 d-flex flex-column justify-content-between">
+  <%= turbo_stream_from chatroom, "messages" %>
+  <%= turbo_frame_tag "messages" do %>
+    <% messages.each do |message| %>
+      <%= render message %>
+    <% end %>
+  <% end %>
+
+  <%= form_with(model: Message.new, class: "d-flex", data: { controller: "message" }) do |form| %>
+    <%= form.hidden_field :chatroom_id, value: chatroom.id %>
+    <%= form.text_area :content, class: "form-control", placeholder: "Conversar em #{names}" %>
+  <% end %>
 </div>

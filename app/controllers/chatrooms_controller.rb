@@ -8,6 +8,14 @@ class ChatroomsController < ApplicationController
 
   # GET /chatrooms/1 or /chatrooms/1.json
   def show
+    @names = User
+              .joins(:user_chatrooms)
+              .where(user_chatrooms: { chatroom_id: @chatroom.id })
+              .where.not(user_chatrooms: { user_id: @current_user.id })
+              .pluck(:name)
+              .join(", ")
+
+    @messages = Message.includes(:user_chatroom).where(user_chatrooms: { chatroom_id: @chatroom.id })
   end
 
   # GET /chatrooms/new
@@ -21,13 +29,18 @@ class ChatroomsController < ApplicationController
 
   # POST /chatrooms or /chatrooms.json
   def create
+    @chatroom = Chatroom.new
     respond_to do |format|
-      if Chatroom.start(chatroom_params[:user_ids] << @current_user.id)
+      if @chatroom.start(current_user_id: @current_user.id, other_user_ids: chatroom_params[:user_ids])
         format.html { redirect_to chatroom_url(@chatroom), notice: "Chatroom was successfully created." }
-        format.json { render :show, status: :created, location: @chatroom }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("direct_messages",
+                                                                        partial: "shared/direct_messages",
+                                                                        locals: { users: @current_user.friendship_users}
+                                                                       )
+                            }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @chatroom.errors, status: :unprocessable_entity }
+        format.turbo_stream
       end
     end
   end

@@ -5,9 +5,9 @@
              chatroom_groups: @chatroom_groups
   %>
 
-  <div class='p-0 w-100'>
+  <div class='p-0 w-100' style="height: 100vh">
     <%= render "shared/header" %>
-    <div class="p-4">
+    <div class="p-4" style="height: calc(100% - 45px)">
       <%= turbo_frame_tag "main" %>
     </div>
   </div>
