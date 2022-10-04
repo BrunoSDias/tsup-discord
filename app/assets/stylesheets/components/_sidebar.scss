@@ -1,3 +1,16 @@
 .sidebar {
   background-color: #2f3136;
+
+  &__user_avatars_container {
+    width: 50px;
+    height: 40px;
+    overflow: hidden;
+  }
+
+  &__user_names {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 170px;
+    overflow: hidden;
+  }
 }

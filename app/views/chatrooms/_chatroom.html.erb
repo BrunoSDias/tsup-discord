@@ -1,8 +1,8 @@
 <div id="<%= dom_id chatroom %>" class="h-100 d-flex flex-column justify-content-between">
-  <%= turbo_stream_from chatroom, "messages" %>
-  <%= turbo_frame_tag "messages" do %>
+  <%= turbo_stream_from "chatroom_#{chatroom.id}_messages" %>
+  <%= turbo_frame_tag "messages", class: "h-100" do %>
     <% messages.each do |message| %>
-      <%= render message %>
+      <%= render message, user: message.user_chatroom.user, message: message %>
     <% end %>
   <% end %>
 
