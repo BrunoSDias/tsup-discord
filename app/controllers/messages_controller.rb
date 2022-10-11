@@ -16,12 +16,25 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(message_params)
-    @message.user_chatroom = UserChatroom.find_by(user_id: @current_user.id, chatroom_id: params[:message][:chatroom_id])
+    message = Message.new(content: message_params[:content])
+    user_chatroom = UserChatroom.find_by(user_id: @current_user.id, chatroom_id: params[:message][:chatroom_id])
+    message_group = MessageGroup
+                      .joins(:user_chatroom)
+                      .where(user_chatrooms: { chatroom_id: params[:message][:chatroom_id]})
+                      .order(created_at: :desc)
+                      .first
+    
+    message.message_group_id = begin
+      if message_group && message_group.user_chatroom_id == user_chatroom.id
+        message_group.id
+      else
+        MessageGroup.create(user_chatroom_id: user_chatroom.id).id
+      end
+    end
 
     respond_to do |format|
-      if @message.save
-        Turbo::StreamsChannel.broadcast_append_to "chatroom_#{params[:message][:chatroom_id]}_messages", target: "messages", partial: "messages/message", locals: { user: @current_user, message: @message }
+      if message.save
+        Turbo::StreamsChannel.broadcast_append_to "chatroom_#{params[:message][:chatroom_id]}_message_groups", target: "message_groups", partial: "message_groups/message_group", locals: { user: @current_user, message_group: message.message_group }
 
         format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
         format.turbo_stream
@@ -59,6 +72,6 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-      params.require(:message).permit(:user_chatroom_id, :content)
+      params.require(:message).permit(:message_group_id, :content)
     end
 end

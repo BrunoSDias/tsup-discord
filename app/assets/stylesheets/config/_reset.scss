@@ -11,3 +11,16 @@ body {
 h1, h2, h3, h4, h5, p, span, a, label, button, small {
   color: #fff;
 }
+
+::-webkit-scrollbar {
+  width: 0.6vw;
+}
+
+::-webkit-scrollbar-track {
+  background: #36373e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2f3136;
+  height: 1vh;
+}

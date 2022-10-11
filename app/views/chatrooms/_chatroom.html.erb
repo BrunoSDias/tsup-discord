@@ -1,13 +1,13 @@
-<div id="<%= dom_id chatroom %>" class="h-100 d-flex flex-column justify-content-between">
-  <%= turbo_stream_from "chatroom_#{chatroom.id}_messages" %>
-  <%= turbo_frame_tag "messages", class: "h-100" do %>
-    <% messages.each do |message| %>
-      <%= render message, user: message.user_chatroom.user, message: message %>
+<div id="<%= dom_id chatroom %>" class="h-100 d-flex flex-column justify-content-between chatroom">
+  <%= turbo_stream_from "chatroom_#{chatroom.id}_message_groups" %>
+  <%= turbo_frame_tag "message_groups", class: "h-100 chatroom__message_groups" do %>
+    <% message_groups.each do |message_group| %>
+      <%= render message_group, user: message_group.user_chatroom.user, message_group: message_group %>
     <% end %>
   <% end %>
 
   <%= form_with(model: Message.new, class: "d-flex", data: { controller: "message" }) do |form| %>
     <%= form.hidden_field :chatroom_id, value: chatroom.id %>
-    <%= form.text_area :content, class: "form-control", placeholder: "Conversar em #{names}" %>
+    <%= form.text_field :content, class: "form-control", placeholder: "Conversar em #{names}" %>
   <% end %>
 </div>

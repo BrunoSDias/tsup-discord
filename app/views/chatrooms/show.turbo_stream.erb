@@ -7,5 +7,5 @@
 <% end %>
 
 <%= turbo_stream.replace "main" do %>
-  <%= render "chatrooms/chatroom", messages: @messages, chatroom: @chatroom, names: @names %>
+  <%= render "chatrooms/chatroom", message_groups: @message_groups, chatroom: @chatroom, names: @names %>
 <% end %>

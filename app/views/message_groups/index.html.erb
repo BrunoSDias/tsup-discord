@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Message groups</h1>
+
+<div id="message_groups">
+  <% @message_groups.each do |message_group| %>
+    <%= render message_group %>
+    <p>
+      <%= link_to "Show this message group", message_group %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New message group", new_message_group_path %>

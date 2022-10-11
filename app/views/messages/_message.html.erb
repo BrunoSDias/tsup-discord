@@ -1,10 +1,3 @@
 <div id="<%= dom_id message %>" class="d-flex">
-  <%= user_avatar(user) %>
-  <div class='ms-2'>
-    <p class='m-0' style='font-size:16px;' >
-      <%= user.name %>
-      <span class='text-secondary' style='font-size:14px;' ><%= message.created_at.strftime("%d/%M/%Y") %></span>
-    </p>
-    <p class='m-0' style='font-size:14px;' ><%= simple_format(message.content) %></p>
-  </div>
+  <p class='m-0' style='font-size:15px;'><%= message.content %></p>
 </div>

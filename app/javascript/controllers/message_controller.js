@@ -9,6 +9,7 @@ export default class extends Controller {
   submit(event) {
     if(event.keyCode == 13 && !event.shiftKey) {
       this.form.requestSubmit();
+      this.value = '';
     }
   }
 }

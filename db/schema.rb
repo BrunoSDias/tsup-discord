@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_004318) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_11_001752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,12 +82,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_004318) do
     t.index ["user2_id"], name: "index_friendships_on_user2_id"
   end
 
-  create_table "messages", force: :cascade do |t|
+  create_table "message_groups", force: :cascade do |t|
     t.bigint "user_chatroom_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_chatroom_id"], name: "index_message_groups_on_user_chatroom_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_chatroom_id"], name: "index_messages_on_user_chatroom_id"
+    t.bigint "message_group_id"
+    t.index ["message_group_id"], name: "index_messages_on_message_group_id"
   end
 
   create_table "user_chatrooms", force: :cascade do |t|
@@ -116,7 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_004318) do
   add_foreign_key "friendship_requests", "users", column: "target_id"
   add_foreign_key "friendships", "users", column: "user1_id"
   add_foreign_key "friendships", "users", column: "user2_id"
-  add_foreign_key "messages", "user_chatrooms"
+  add_foreign_key "message_groups", "user_chatrooms"
   add_foreign_key "user_chatrooms", "chatrooms"
   add_foreign_key "user_chatrooms", "users"
 end

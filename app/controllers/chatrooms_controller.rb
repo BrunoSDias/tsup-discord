@@ -15,7 +15,7 @@ class ChatroomsController < ApplicationController
               .pluck(:name)
               .join(", ")
 
-    @messages = Message.includes(user_chatroom: :user).where(user_chatrooms: { chatroom_id: @chatroom.id })
+    @message_groups = MessageGroup.includes([{user_chatroom: :user}, :messages]).where(user_chatrooms: { chatroom_id: @chatroom.id })
   end
 
   # GET /chatrooms/new

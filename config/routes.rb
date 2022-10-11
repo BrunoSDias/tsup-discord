@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :message_groups
   resources :messages
   resources :blockeds
   root 'home#index'

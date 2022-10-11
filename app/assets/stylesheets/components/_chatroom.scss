@@ -1,0 +1,6 @@
+.chatroom {
+  &__message_groups {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
