@@ -8,12 +8,10 @@ class ChatroomsController < ApplicationController
 
   # GET /chatrooms/1 or /chatrooms/1.json
   def show
-    @names = User
+    @users = User
               .joins(:user_chatrooms)
               .where(user_chatrooms: { chatroom_id: @chatroom.id })
               .where.not(user_chatrooms: { user_id: @current_user.id })
-              .pluck(:name)
-              .join(", ")
 
     @message_groups = MessageGroup.includes([{user_chatroom: :user}, :messages]).where(user_chatrooms: { chatroom_id: @chatroom.id })
   end

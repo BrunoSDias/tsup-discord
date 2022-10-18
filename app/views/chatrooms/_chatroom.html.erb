@@ -1,6 +1,7 @@
 <div id="<%= dom_id chatroom %>" class="h-100 d-flex flex-column justify-content-between chatroom">
   <%= turbo_stream_from "chatroom_#{chatroom.id}_message_groups" %>
   <%= turbo_frame_tag "message_groups", class: "h-100 chatroom__message_groups" do %>
+    <%= chatroom_main(users) %>
     <% message_groups.each do |message_group| %>
       <%= render message_group, user: message_group.user_chatroom.user, message_group: message_group %>
     <% end %>
@@ -8,6 +9,6 @@
 
   <%= form_with(model: Message.new, class: "d-flex", data: { controller: "message" }) do |form| %>
     <%= form.hidden_field :chatroom_id, value: chatroom.id %>
-    <%= form.text_field :content, class: "form-control", placeholder: "Conversar em #{names}" %>
+    <%= form.text_area :content, class: "form-control", placeholder: "Conversar em #{users.map(&:name).join(", ")}", rows: 1 %>
   <% end %>
 </div>

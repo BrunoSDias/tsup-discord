@@ -1,0 +1,13 @@
+.message {
+  &__created_hour {
+    font-size: 11px;
+    color: #6c757d !important;
+    margin-right: 6px;
+    margin-left: -34px;
+    visibility: hidden;
+
+    &:hover {
+      visibility: visible;
+    }
+  }
+}

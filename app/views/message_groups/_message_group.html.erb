@@ -1,12 +1,17 @@
-<div id="<%= dom_id message_group %>" class="d-flex">
-  <%= user_avatar(user) %>
-  <div class='ms-2'>
-    <p class='m-0' style='font-size:16px;' >
-      <%= user.name %>
-      <span class='text-secondary' style='font-size:14px;' ><%= message_group.created_at.strftime("%d/%M/%Y") %></span>
-    </p>
-    <% message_group.messages.each do |message| %>
-      <%= render message %>
-    <% end %>
+<div id="<%= dom_id message_group %>">
+  <div class='message_group__data_row'>
+    <span><%= l(message_group.created_at, format: :long_date) %></span>
+  </div>
+  <div class="d-flex">
+    <%= user_avatar(user) %>
+    <div class='ms-2'>
+      <p class='m-0' style='font-size:16px;' >
+        <%= user.name %>
+        <span class='text-secondary' style='font-size:14px;' ><%= message_group.created_at.strftime("%d/%M/%Y") %></span>
+      </p>
+      <% message_group.messages.each.with_index do |message, i| %>
+        <%= render message, message: message, i: i %>
+      <% end %>
+    </div>
   </div>
 </div>

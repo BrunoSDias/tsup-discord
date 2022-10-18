@@ -1,3 +1,8 @@
 <div id="<%= dom_id message %>" class="d-flex">
+  <% if i > 0 %>
+    <%= tag.span class: 'message__created_hour' do %>
+      <%= message.created_at.strftime("%H:%M") %>
+    <% end %> 
+  <% end %> 
   <p class='m-0' style='font-size:15px;'><%= message.content %></p>
 </div>

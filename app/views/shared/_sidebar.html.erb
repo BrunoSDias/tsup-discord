@@ -25,10 +25,11 @@
   <%= turbo_stream_from "user_#{@current_user.id}_chatrooms" %>
   <%= turbo_frame_tag "chatrooms" do %>
     <% chatroom_groups.each do |key, values| %>
+      <% user_names, user_avatars = sidebar_user_names_and_avatars(values) %>
       <%= button_to chatroom_path(key), method: :get, class: 'd-flex align-items-center bg-transparent border-0', form: { data: { controller: "chatroom", action: "turbo:before-fetch-request->chatroom#add_turbo_header" } } do %>
-          <%= stack_users_avatar(values) %>
-        <div class='ms-2' style="text-align: left;">
-          <%= stack_users_name(values) %>
+        <%= sidebar_user_avatars(user_avatars) %>
+        <div class='ms-2' style="text-align: left; line-height: 18px;">
+          <%= sidebar_user_names(user_names) %>
           <%= members_count(values) %>
         </div>
       <% end %>
