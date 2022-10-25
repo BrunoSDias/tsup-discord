@@ -1,0 +1,3 @@
+<%= turbo_stream.replace @message do %>
+  <%= render @message, message: @message, i: @pos.to_i %>
+<% end %>

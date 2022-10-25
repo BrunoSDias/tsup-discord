@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     get 'header', on: :collection
     delete 'remove', on: :collection, to: 'friendships#destroy'
   end
+
+  resources :users do
+    patch '/set_status', to: 'users#set_status'
+  end
   
   resources :available_friendships, only: %i[index]
 

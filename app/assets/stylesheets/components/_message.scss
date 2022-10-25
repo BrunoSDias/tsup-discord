@@ -2,12 +2,32 @@
   &__created_hour {
     font-size: 11px;
     color: #6c757d !important;
-    margin-right: 6px;
-    margin-left: -34px;
-    visibility: hidden;
-
-    &:hover {
-      visibility: visible;
-    }
+    margin-right: 0;
+    margin-left: -48px;
+    padding-left: 10px;
+    width: 48px;
   }
+
+  &__hidden {
+    visibility: hidden
+  }
+
+  &__hover:hover {
+    background-color: #31343a;
+  }
+
+  &__hover:hover > .message__hidden {
+    visibility: visible;
+    background-color: #31343a;
+  }
+
+  &__container_buttons {
+    position: absolute;
+    right: 0px;
+    top: -25px;
+    width: 70px;
+    background-color: #2a2d32 !important;
+    display: flex;
+  }
+
 }

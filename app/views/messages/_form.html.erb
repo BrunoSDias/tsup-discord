@@ -1,27 +1,8 @@
-<%= form_with(model: message) do |form| %>
-  <% if message.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
-
-      <ul>
-        <% message.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :user_chatroom_id, style: "display: block" %>
-    <%= form.text_field :user_chatroom_id %>
-  </div>
-
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+<%= form_with(model: message, data: { controller: 'message' }) do |form| %>
+  <%= hidden_field_tag :pos, pos %>
+  <%= form.text_area :content %>
+  <p>
+    ctrl para <%= link_to("cancelar", message_path(message, pos: pos), class: 'link-primarys') %>
+    ° enter para <%= form.submit "salvar", class: "link-primary bg-transparent" %>
+  </p>
 <% end %>

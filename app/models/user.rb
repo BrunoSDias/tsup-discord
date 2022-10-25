@@ -11,8 +11,14 @@ class User < ApplicationRecord
     'disponivel': 'available',
     'ausente': 'unavailable',
     'nao perturbar': 'occupied',
-    'ausente': 'offiline'
+    'offline': 'offline'
   }
+
+  def broadcast_status
+    friendship_users.each do |friendship_user|
+      ActionCable.server.broadcast("friendship_#{friendship_user.id}", { status: User.statuses[status], id: id })
+    end
+  end
   
   def friendship_users(extra_conditions: '')
     self.class.find_by_sql("

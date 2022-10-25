@@ -5,7 +5,7 @@ class Sessions::SignupController < Sessions::ApplicationController
   def create
     user = User.new(session_params)
     if user.save
-      session[:user_id] = user.id
+      cookies.encrypted[:user_id] = user.id
       redirect_to root_path
     end
   end

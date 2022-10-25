@@ -4,14 +4,16 @@
   </div>
   <div class="d-flex">
     <%= user_avatar(user) %>
-    <div class='ms-2'>
+    <div class='ms-2 w-100'>
       <p class='m-0' style='font-size:16px;' >
         <%= user.name %>
         <span class='text-secondary' style='font-size:14px;' ><%= message_group.created_at.strftime("%d/%M/%Y") %></span>
       </p>
-      <% message_group.messages.each.with_index do |message, i| %>
-        <%= render message, message: message, i: i %>
-      <% end %>
+      <div>
+        <% message_group.messages.each.with_index do |message, i| %>
+          <%= render message, message: message, i: i %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

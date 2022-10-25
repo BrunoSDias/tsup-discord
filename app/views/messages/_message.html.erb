@@ -1,8 +1,20 @@
-<div id="<%= dom_id message %>" class="d-flex">
-  <% if i > 0 %>
-    <%= tag.span class: 'message__created_hour' do %>
-      <%= message.created_at.strftime("%H:%M") %>
+<%= turbo_frame_tag message do %>
+  <div class="d-flex position-relative w-100 message__hover">
+    <%= content_tag :div, class: "message__hidden message__container_buttons" do
+      [
+        link_to(edit_message_path(message, pos: i), class: 'btn btn-sm' ) do
+          tag.i class: "bi bi-pencil-fill", style: 'color: #ffffff;'
+        end,
+        button_to(message_path(message), method: :delete, class: 'btn btn-sm') do
+          tag.i class: "bi bi-trash-fill", style: 'color: #ffffff;'
+        end
+      ].join(" ").html_safe
+    end %>
+    <% if i > 0 %>
+      <%= tag.span class: 'message__hidden message__created_hour' do %>
+        <%= message.created_at.strftime("%H:%M") %>
+      <% end %> 
     <% end %> 
-  <% end %> 
-  <p class='m-0' style='font-size:15px;'><%= message.content %></p>
-</div>
+    <p class='m-0' style='font-size:15px;'><%= simple_format(message.content) %></p>
+  </div>
+<% end %>

@@ -3,13 +3,13 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     @current_user ||= begin
-      User.find(session[:user_id]) if session[:user_id]
+      User.find(cookies.encrypted[:user_id]) if cookies.encrypted[:user_id]
     rescue StandardError
       nil
     end
 
     unless @current_user
-      session[:user_id] = nil
+      cookies.encrypted[:user_id] = nil
       redirect_to '/sessions/signin/new'
     end
   end

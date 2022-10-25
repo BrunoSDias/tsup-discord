@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
   end
 
   def show
+    @pos = params[:pos]
   end
 
   def new
@@ -13,6 +14,7 @@ class MessagesController < ApplicationController
   end
 
   def edit
+    @pos = params[:pos]
   end
 
   def create
@@ -46,10 +48,12 @@ class MessagesController < ApplicationController
   end
 
   def update
+    @pos = params[:pos]
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to message_url(@message), notice: "Message was successfully updated." }
+        format.html { redirect_to messages_url(@message), notice: "Message was successfully updated." }
         format.json { render :show, status: :ok, location: @message }
+        format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
@@ -63,6 +67,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to messages_url, notice: "Message was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream
     end
   end
 

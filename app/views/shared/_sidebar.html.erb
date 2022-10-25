@@ -25,11 +25,10 @@
   <%= turbo_stream_from "user_#{@current_user.id}_chatrooms" %>
   <%= turbo_frame_tag "chatrooms" do %>
     <% chatroom_groups.each do |key, values| %>
-      <% user_names, user_avatars = sidebar_user_names_and_avatars(values) %>
       <%= button_to chatroom_path(key), method: :get, class: 'd-flex align-items-center bg-transparent border-0', form: { data: { controller: "chatroom", action: "turbo:before-fetch-request->chatroom#add_turbo_header" } } do %>
-        <%= sidebar_user_avatars(user_avatars) %>
+        <%= sidebar_user_avatars(values) %>
         <div class='ms-2' style="text-align: left; line-height: 18px;">
-          <%= sidebar_user_names(user_names) %>
+          <%= sidebar_user_names(values) %>
           <%= members_count(values) %>
         </div>
       <% end %>
@@ -39,14 +38,31 @@
   <hr>
   <div class="dropdown">
     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-      <% if @current_user.avatar.attached? %>
-        <%= image_tag @current_user.avatar, width: 32, height: 32, class: "rounded-circle me-2" %>
-      <% else %>
-        <i class="bi bi-person-check" style='font-size: 28px;'></i>
-      <% end %>
+      <div class="position-relative me-2">
+        <% if @current_user.avatar.attached? %>
+          <%= image_tag @current_user.avatar, width: 32, height: 32, class: "rounded-circle" %>
+        <% else %>
+          <i class="bi bi-person-check" style='font-size: 28px;'></i>
+        <% end %>
+        <%= tag.div(id: "current_user_status", class: "status status__#{User.statuses[@current_user.status]}") %>
+      </div>
       <strong><%= @current_user.name %></strong>
     </a>
     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+      
+      <li>
+        <%= button_to "Disponível", "/users/#{@current_user.id}/set_status?status=#{CGI::escapeHTML("disponivel")}", method: :patch, remote: true, data: { turbo: false }, class: "dropdown-item", style: 'color: green' %>
+      </li>
+      <li>
+        <%= button_to "Ausente", "/users/#{@current_user.id}/set_status?status=#{CGI::escapeHTML("ausente")}", method: :patch, remote: true, data: { turbo: false }, class: "dropdown-item", style: 'color: red' %>
+      </li>
+      <li>
+        <%= button_to "Não perturbar", "/users/#{@current_user.id}/set_status?status=#{CGI::escapeHTML("nao perturbar")}", method: :patch, remote: true, data: { turbo: false }, class: "dropdown-item", style: 'color: orange' %>
+      </li>
+      <li>
+        <%= button_to "Offline", "/users/#{@current_user.id}/set_status?status=#{CGI::escapeHTML("offline")}", method: :patch, remote: true, data: { turbo: false }, class: "dropdown-item", style: 'color: gray' %>
+      </li>
+      <hr>
       <li>
         <%= button_to "Sair", '/sessions/signout', method: :delete, class: "dropdown-item" %>
       </li>
