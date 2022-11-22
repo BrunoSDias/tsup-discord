@@ -8,12 +8,16 @@ class ChatroomsController < ApplicationController
 
   # GET /chatrooms/1 or /chatrooms/1.json
   def show
-    @users = User
-              .joins(:user_chatrooms)
-              .where(user_chatrooms: { chatroom_id: @chatroom.id })
-              .where.not(user_chatrooms: { user_id: @current_user.id })
+    load_show_requirements(@chatroom)
+  end
 
-    @message_groups = MessageGroup.includes([{user_chatroom: :user}, :messages]).where(user_chatrooms: { chatroom_id: @chatroom.id })
+  def direct
+    @chatroom = Chatroom.search_chatroom([@current_user.id, params[:target_id].to_i]).first
+    if @chatroom.present?
+      load_show_requirements(@chatroom)
+
+      render 'chatrooms/show'
+    end
   end
 
   # GET /chatrooms/new
@@ -29,13 +33,13 @@ class ChatroomsController < ApplicationController
   def create
     @chatroom = Chatroom.new
     respond_to do |format|
-      if @chatroom.start(current_user_id: @current_user.id, other_user_ids: chatroom_params[:user_ids])
-        format.html { redirect_to chatroom_url(@chatroom), notice: "Chatroom was successfully created." }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("direct_messages",
-                                                                        partial: "shared/direct_messages",
-                                                                        locals: { users: @current_user.friendship_users}
-                                                                       )
-                            }
+      valid, content = @chatroom.start(current_user_id: @current_user.id, other_user_ids: chatroom_params[:user_ids])
+      if valid
+        @chatroom = content
+        load_show_requirements(@chatroom)
+        
+        render 'chatrooms/show'
+        return
       else
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream
@@ -67,6 +71,14 @@ class ChatroomsController < ApplicationController
   end
 
   private
+    def load_show_requirements(chatroom)
+      @users = User
+      .joins(:user_chatrooms)
+      .where(user_chatrooms: { chatroom_id: chatroom.id })
+      .where.not(user_chatrooms: { user_id: @current_user.id })
+
+      @message_groups = MessageGroup.includes([{user_chatroom: :user}, :messages]).where(user_chatrooms: { chatroom_id: chatroom.id })
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_chatroom
       @chatroom = Chatroom.find(params[:id])

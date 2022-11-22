@@ -1,6 +1,9 @@
 class HomeController < ApplicationController
+  before_action :total_pending_friendships_request, only: [:index]
+
   def index
-    @total_friendship_requests_received = FriendshipRequest.where(target_id: @current_user).load_async.count
+    friendship_users("and users.status = 'available'")
+
     @users = @current_user.friendship_users
     @chatrooms = @current_user.chatrooms
     @chatroom_groups = UserChatroom

@@ -1,8 +1,7 @@
 <%= turbo_frame_tag "direct_messages" do %>
-  <div id="dropdown-element" class="dropdown-menu p-0" data-controller="direct-message">
+  <div id="dropdown-element" class="dropdown-menu p-0" data-controller="direct-message" data-action="turbo:before-fetch-request->direct-message#hideDropdown">
     <%= form_with(model: Chatroom.new) do |form| %>
       <div class="direct_messages card">
-        <%= turbo_frame_tag "flash_message" %>
         <p class="m-0 direct_messages__title">Selecionar amigos</p>
         <small class="direct_messages__subtitle">Você pode adicionar até mais 9 amigos</small>
         

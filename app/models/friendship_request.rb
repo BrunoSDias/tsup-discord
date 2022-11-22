@@ -15,10 +15,9 @@ class FriendshipRequest < ApplicationRecord
     target: "friendship_requests_container",
     partial: "friendship_requests/target_friendship_request",
     locals: { friendship_request: friendship_request }
+  }
 
-    broadcast_replace_to [friendship_request.target, "total_friendship_requests_received"],
-    target: "total_friendship_requests_received",
-    partial: "shared/counter_badge",
-    locals: { total: FriendshipRequest.where(target_id: friendship_request.target_id).count }
+  after_commit -> (friendship_request) { 
+    ActionCable.server.broadcast("pending_requests_#{friendship_request.target_id}", { total: FriendshipRequest.where(target_id: friendship_request.target_id).count })
   }
 end

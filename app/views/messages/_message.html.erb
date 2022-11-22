@@ -1,20 +1,82 @@
-<%= turbo_frame_tag message do %>
-  <div class="d-flex position-relative w-100 message__hover">
-    <%= content_tag :div, class: "message__hidden message__container_buttons" do
-      [
-        link_to(edit_message_path(message, pos: i), class: 'btn btn-sm' ) do
-          tag.i class: "bi bi-pencil-fill", style: 'color: #ffffff;'
-        end,
-        button_to(message_path(message), method: :delete, class: 'btn btn-sm') do
-          tag.i class: "bi bi-trash-fill", style: 'color: #ffffff;'
-        end
-      ].join(" ").html_safe
-    end %>
-    <% if i > 0 %>
-      <%= tag.span class: 'message__hidden message__created_hour' do %>
-        <%= message.created_at.strftime("%H:%M") %>
-      <% end %> 
-    <% end %> 
-    <p class='m-0' style='font-size:15px;'><%= simple_format(message.content) %></p>
+<div class="message__hover w-100" data-controller="message">
+  <%= turbo_frame_tag message do %>
+    <div class="d-flex position-relative w-100">
+    
+      <%= content_tag :div, class: "message__hidden message__container_buttons" do
+        [
+          link_to(edit_message_path(message, pos: i), class: 'btn btn-sm' ) do
+            tag.i class: "bi bi-pencil-fill", style: 'color: #ffffff;'
+          end,
+          button_to(message_path(message), method: :delete, class: 'btn btn-sm') do
+            tag.i class: "bi bi-trash-fill", style: 'color: #ffffff;'
+          end
+        ].join(" ").html_safe
+      end %>
+      <% if i > 0 %>
+        <%= tag.span class: 'message__hidden message__created_hour' do %>
+          <%= message.created_at.strftime("%H:%M") %>
+        <% end %> 
+      <% end %>
+      <p class='m-0' style='font-size:15px;'><%= simple_format(message.content) %></p>
+    </div>
+  <% end %>
+  <div class='d-flex position-relative w-100 message__hover' data-controller="modal">
+    <% if message.attachments.count > 0 %>
+      <div>
+        <% message.attachments.each.with_index do |attachment, index| %>
+          <% if attachment.image? %>
+            <div class="message__attachments_container" id="attachment<%= attachment.id %>">
+              <%= image_tag attachment, class: 'message__attachments_image', data: { action: "click->modal#show" } %>
+              <div class="modal fade" id="<%= attachment.id %>Modal" tabindex="<%= index %>" aria-labelledby="<%= attachment.id %>ModalLabel" aria-hidden="true" data-action="blur->modal#hide">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <%= image_tag attachment %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% elsif attachment.video? %>
+            <div class="message__attachments_container" id="attachment<%= attachment.id %>">
+              <p class='message__attachments_video_title'>
+                <span><%= attachment.filename %></span>
+                <%= link_to url_for(attachment), download: true do %>
+                  <i class="bi bi-download"></i>
+                <% end %>
+              </p>
+              <%= video_tag url_for(attachment), class: 'message__attachments_video', controls: '' %>
+            </div>
+          <% elsif attachment.audio? %>
+            <div>
+              <div class="message__attachments_container" id="attachment<%= attachment.id %>">
+                <div class="d-flex w-100">
+                  <i class="bi bi-file-earmark-music" style='font-size:38px; color: #ffffff;'></i>
+                  <p style='font-size: 15px;'>
+                    <%= link_to attachment.filename, url_for(attachment), download: true %> <br />
+                    <%= Utils::File.convert_byte_to_kilobyte(attachment.byte_size) %>
+                  </p>
+                </div>
+                <%= link_to url_for(attachment), download: true do %>
+                  <i class="bi bi-download" style='font-size:20px; color: #ffffff;'></i>
+                <% end %>
+              </div>
+              <%= audio_tag url_for(attachment), class: 'message__attachments_audio', controls: '' %>
+            </div>
+          <% else %>
+              <div class="message__attachments_container" id="attachment<%= attachment.id %>">
+                <div class="d-flex w-100">
+                  <i class="bi bi-file-earmark-pdf" style='font-size:38px; color: #ffffff;'></i>
+                  <p style='font-size: 15px;'>
+                    <%= link_to attachment.filename, url_for(attachment), download: true %> <br />
+                    <%= Utils::File.convert_byte_to_kilobyte(attachment.byte_size) %>
+                  </p>
+                </div>
+                <%= link_to url_for(attachment), download: true do %>
+                  <i class="bi bi-download" style='font-size:20px; color: #ffffff;'></i>
+                <% end %>
+              </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

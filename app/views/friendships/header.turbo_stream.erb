@@ -1,0 +1,10 @@
+<%= turbo_stream.replace "header_frame" do %>
+  <%= render 'friendships/header',
+      current_user: @current_user,
+      total_friendship_requests_received: @total_friendship_requests_received
+  %>
+<% end %>
+
+<%= turbo_stream.replace "main" do %>
+  <%= render "available_friendships/index", friendship_users: @friendship_users %>
+<% end %>

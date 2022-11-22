@@ -1,14 +1,10 @@
-<div class='d-flex align-items-center'>
-  <% if users.first.avatar.attached? %>
-    <%= image_tag users.first.avatar, class: 'rounded-image', width: 40, height: 40 %>
-  <% else %>
-    <i class="bi bi-person-check" style='font-size: 28px; margin-right: 10px;'></i>
-  <% end %>
-  <div class="ms-2" style="line-height: 16px;">
-    <p class="m-0"><%= users.first.name %></p>
+<%= button_to chatroom_path(key), method: :get, id: "chatroom_url_#{key}", class: 'd-flex align-items-center justify-content-between border-0 w-100 nav-link chatroom__link', form: { class: 'friendships_form' } do %>
+  <div class="d-flex align-items-center">
+    <%= sidebar_user_avatars(values) %>
+    <div class='ms-2' style="text-align: left; line-height: 18px;">
+      <%= sidebar_user_names(values) %>
+      <%= members_count(values) %>
+    </div>
   </div>
-</div>
-<% size = users.size %>
-<% if size > 1 %>
-  <%= size %> Membros
+  <%= tag.i class: "bi bi-x chatroom__remove_icon", data: { id: key } %>
 <% end %>

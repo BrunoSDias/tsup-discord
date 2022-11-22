@@ -6,9 +6,12 @@
   %>
 
   <div class='p-0 w-100' style="height: 100vh">
-    <%= render "shared/header" %>
+    <%= render 'friendships/header',
+        current_user: @current_user,
+        total_friendship_requests_received: @total_friendship_requests_received
+    %>
     <div class="p-4" style="height: calc(100% - 45px)">
-      <%= turbo_frame_tag "main" %>
+      <%= render 'available_friendships/index', friendship_users: @friendship_users %>
     </div>
   </div>
 </div>

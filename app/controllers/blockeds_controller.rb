@@ -12,6 +12,7 @@ class BlockedsController < ApplicationController
       if @blocked.save
         format.html { redirect_to blocked_url(@blocked), notice: "Blocked was successfully created." }
         format.json { render :show, status: :created, location: @blocked }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @blocked.errors, status: :unprocessable_entity }
@@ -25,6 +26,7 @@ class BlockedsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to blockeds_url, notice: "Blocked was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream
     end
   end
 

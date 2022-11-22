@@ -7,8 +7,16 @@
     <% end %>
   <% end %>
 
-  <%= form_with(model: Message.new, class: "d-flex", data: { controller: "message" }) do |form| %>
+  <%= form_with(model: Message.new, data: { controller: "chatroom" }) do |form| %>
     <%= form.hidden_field :chatroom_id, value: chatroom.id %>
-    <%= form.text_area :content, class: "form-control", placeholder: "Conversar em #{users.map(&:name).join(", ")}", rows: 1 %>
+    <div id='attachments-previews-container' class='attachment__previews_container d-none'></div>
+    <div class='d-flex w-100 align-items-center'>
+      <%= form.label :attachments, class: 'attachment__previews_input' do %>
+        <i class="bi bi-plus-circle"></i>
+      <% end %>
+      <%= form.file_field :attachments, multiple: true, class: 'd-none', data: { controller: 'attachment-preview', action: 'change->attachment-preview#preview' } %>
+     
+      <%= form.text_area :content, class: "form-control", placeholder: "Conversar em #{users.map(&:name).join(", ")}", rows: 1 %>
+    </div>
   <% end %>
 </div>

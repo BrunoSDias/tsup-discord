@@ -1,14 +1,1 @@
-<%= turbo_frame_tag "main" do %>
-  <p style="color: green"><%= notice %></p>
-  <%= turbo_frame_tag "flash_message" %>
-
-  <h5>Disponiveis - <%= @friendship_users.count %></h5>
-
-  <%= turbo_stream_from @current_user, "friendship_users" %>
-  <%= turbo_frame_tag "friendship_users_container" do %>
-    <% @friendship_users.each do |friendship_user| %>
-      <%= render "friendships/friendship_user", friendship_user: friendship_user %>
-    <% end %>
-  <% end %>
-<% end %>
-
+<%= render "available_friendships/index", friendship_users: @friendship_users %>

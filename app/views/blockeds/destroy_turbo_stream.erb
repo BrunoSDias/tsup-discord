@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "total_blocked" %>
+  <%= render "blockeds/total_blockeds", blockeds: @current_user.blockeds.count %>
+<% end %>

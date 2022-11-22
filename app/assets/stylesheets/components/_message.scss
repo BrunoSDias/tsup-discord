@@ -16,11 +16,6 @@
     background-color: #31343a;
   }
 
-  &__hover:hover > .message__hidden {
-    visibility: visible;
-    background-color: #31343a;
-  }
-
   &__container_buttons {
     position: absolute;
     right: 0px;
@@ -28,6 +23,51 @@
     width: 70px;
     background-color: #2a2d32 !important;
     display: flex;
+  }
+
+  &__attachments {
+    &_container {
+      width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    &_image {
+      max-width: 400px;
+    }
+
+    &_video {
+      width: 100%;
+      z-index: 1;
+      &_title {
+        position: absolute;
+        font-size: 15px;
+        top: 2px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 8px;
+        z-index: 2;
+        font-weight: bold;
+      }
+
+      &_title:hover > span {
+        color: rgb(238, 233, 233);
+      }
+
+      &_title:hover > i {
+        color: rgb(238, 233, 233);
+      }
+    }
+
+    &_audio {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 0;
+      height: 30px;
+    }
   }
 
 }

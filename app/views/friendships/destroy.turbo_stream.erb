@@ -3,3 +3,11 @@
   <% end %>
 
   <%= turbo_stream.remove "user_#{@friend_user_id}" %>
+
+  <%= turbo_stream.replace "total_friendship_users" do %>
+    <%= render "friendships/total_friendship_users", friendship_users: @friendship_users %>
+  <% end %>
+
+  <%= turbo_stream.replace "total_available_friendships" do %>
+    <%= render "available_friendships/total_available_friendships", friendship_users: @available_friendship_users %>
+  <% end %>

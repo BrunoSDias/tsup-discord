@@ -1,3 +1,6 @@
+// Variables
+@import "variables/bootstrap.scss";
+
 // External
 @import "bootstrap";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
@@ -13,6 +16,7 @@
 @import "components/message_group";
 @import "components/message";
 @import "components/status";
+@import "components/attachment";
 
 //Configurations
 @import "config/reset";

@@ -2,7 +2,7 @@
   <p style="color: green"><%= notice %></p>
   <%= turbo_frame_tag "flash_message" %>
 
-  <h5>TODOS OS AMIGOS - <%= @friendship_users.count %></h5>
+  <%= render "friendships/total_friendship_users", friendship_users: @friendship_users %>
 
   <%= turbo_stream_from @current_user, "friendship_users" %>
   <%= turbo_frame_tag "friendship_users_container" do %>

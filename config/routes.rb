@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :users do
     patch '/set_status', to: 'users#set_status'
   end
+
+  resources :user_chatrooms, only: [:destroy]
   
   resources :available_friendships, only: %i[index]
 
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :chatrooms do
-    get 'direct', on: :collection
+    post 'direct', on: :collection
   end
 
   namespace :sessions do

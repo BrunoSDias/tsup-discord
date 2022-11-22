@@ -1,11 +1,15 @@
 <%= turbo_stream.replace "header_frame" do %>
-  <nav class="navbar navbar-expand-lg w-100 header shadow">
-    <div class="container-fluid">
-      <%= chatroom_header(@users) %>
-    </div>
-  </nav>
+  <%= turbo_frame_tag "header_frame" do %>
+    <nav class="navbar navbar-expand-lg w-100 header shadow">
+      <div class="container-fluid">
+        <%= chatroom_header(@users) %>
+      </div>
+    </nav>
+  <% end %>
 <% end %>
 
 <%= turbo_stream.replace "main" do %>
-  <%= render "chatrooms/chatroom", message_groups: @message_groups, chatroom: @chatroom, users: @users %>
+  <%= turbo_frame_tag "main" do %>
+    <%= render "chatrooms/chatroom", message_groups: @message_groups, chatroom: @chatroom, users: @users %>
+  <% end %>
 <% end %>

@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    message = Message.new(content: message_params[:content])
+    message = Message.new(message_params)
     user_chatroom = UserChatroom.find_by(user_id: @current_user.id, chatroom_id: params[:message][:chatroom_id])
     message_group = MessageGroup
                       .joins(:user_chatroom)
@@ -62,6 +62,7 @@ class MessagesController < ApplicationController
   end
 
   def destroy
+    @attachment_ids = @message.attachments.pluck(:id)
     @message.destroy
 
     respond_to do |format|
@@ -77,6 +78,6 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-      params.require(:message).permit(:message_group_id, :content)
+      params.require(:message).permit(:message_group_id, :content, attachments: [])
     end
 end

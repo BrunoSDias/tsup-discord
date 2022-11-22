@@ -1,1 +1,5 @@
 <%= turbo_stream.remove @message %>
+
+<%= @attachment_ids.each do |attachment_id| %>
+  <%= turbo_stream.remove "attachment#{attachment_id}" %>
+<% end %>

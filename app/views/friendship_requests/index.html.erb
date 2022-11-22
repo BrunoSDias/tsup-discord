@@ -2,7 +2,7 @@
   <p style="color: green"><%= notice %></p>
   <%= turbo_frame_tag "flash_message" %>
 
-  <h5>Pendente - <%= @target_friendship_requests.count + @sender_friendship_requests.count %></h5>
+  <h5 id='total_pending'>Pendente - <%= @target_friendship_requests.count + @sender_friendship_requests.count %></h5>
 
   <%= turbo_stream_from @current_user, "friendship_requests" %>
   <%= turbo_frame_tag "friendship_requests_container" do %>

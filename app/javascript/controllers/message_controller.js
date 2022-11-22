@@ -3,17 +3,21 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="message"
 export default class extends Controller {
   connect() {
-    this.element.addEventListener("keydown", this.handleEventListener)
+    this.element.addEventListener('mouseover', this.showHiddenButtons)
+    this.element.addEventListener('mouseout', this.hideHiddenButtons)
   }
 
-  handleEventListener(event) {
-    if(event.keyCode == 13 && !event.shiftKey) {
-      this.requestSubmit();
-      this.elements.message_content.value = ''
-    }
+  showHiddenButtons() {
+    const element = this.querySelector('.message__container_buttons')
+    if (!element) return;
 
-    if (event.ctrlKey) {
-      this.children[4].children[0].click();
-    }
+    element.classList.remove("message__hidden");
+  }
+
+  hideHiddenButtons() {
+    const element = this.querySelector('.message__container_buttons')
+    if (!element) return;
+
+    element.classList.add("message__hidden");
   }
 }

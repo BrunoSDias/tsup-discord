@@ -16,4 +16,18 @@
     max-width: 170px;
     overflow: hidden;
   }
+
+  &__remove_icon {
+    color: #ece9e9;
+    font-size: 28px;
+  }
+
+  &__remove_icon:hover {
+    color: #ffffff;
+  }
+
+  &__active {
+    color: #fff;
+    background-color: #5c636b !important;
+  }
 }

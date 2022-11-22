@@ -13,4 +13,12 @@ class ApplicationController < ActionController::Base
       redirect_to '/sessions/signin/new'
     end
   end
+
+  def total_pending_friendships_request
+    @total_friendship_requests_received = FriendshipRequest.where(target_id: @current_user).load_async.count
+  end
+
+  def friendship_users(extra_conditions = '')
+    @friendship_users = @current_user.friendship_users(extra_conditions: extra_conditions)
+  end
 end

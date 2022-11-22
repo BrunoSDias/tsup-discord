@@ -1,0 +1,72 @@
+.attachment {
+  &__previews {
+    position: relative;
+    height: 180px;
+    width: 180px;
+    padding: 10px;
+    background-color: #36393f;
+    margin-right: 8px;
+
+    &_container {
+      background-color: #3e434b;
+      height: 200px;
+      padding: 15px;
+      width: 100%;
+      margin-bottom: 8px;
+      display: flex;
+    }
+
+    &_image {
+      img {
+        width: 85%;
+        height: 85%;
+        background-size: cover;
+      }
+    }
+
+    &_audio {
+      i {
+
+      }
+    }
+
+    &_video {
+      i {
+        
+      }
+    }
+
+    &_input {
+      i {
+        
+      }
+    }
+
+    &_default {
+
+      i {
+
+      }
+    }
+
+    &_file_representation {
+      font-size: 135px;
+      line-height: 0;
+    }
+
+    &_remove_icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: #2c2e33;
+      color: red;
+    }
+
+    &_filename {
+      color: white;
+      font-size: 13px;
+      margin: 0;
+      margin-top: 8px;
+    }
+  }
+}
